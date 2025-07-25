@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สำหรับคนพิเศษของเค้า 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a6f, #ff8e8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .heart:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .heart:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .heart:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .heart:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .heart:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .heart:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-section h2 {
+            color: #ff6b6b;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .love-message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            background: #fff;
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-photo {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            object-position: center;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            transition: transform 0.3s ease;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            text-align: center;
+            padding: 30px 20px 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            color: #ff6b6b;
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .slide-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slide-btn.prev {
+            left: 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .slide-btn.next {
+            right: 0;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .dots-container {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: rgba(255, 107, 107, 0.4);
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active,
+        .dot:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.2);
+        }
+
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .thumbnail {
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b6b;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            object-position: center;
+            background: #f8f9fa;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail:hover img {
+            transform: scale(1.1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .memory-card {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .memory-card h3 {
+            color: #e17055;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .interactive-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(238, 90, 111, 0.4);
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238, 90, 111, 0.6);
+        }
+
+        .surprise-message {
+            display: none;
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .countdown {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin: 20px 0;
+        }
+
+        /* YouTube Embed Styles */
+        .youtube-container {
+            display: none;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .youtube-embed {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-section {
+                padding: 25px;
+                margin: 20px 0;
+            }
+            
+            .slide-photo {
+                height: 300px;
+                object-fit: contain;
+            }
+            
+            .slide-btn {
+                font-size: 1.5rem;
+                padding: 10px 15px;
+            }
+            
+            .thumbnail-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .thumbnail img {
+                height: 60px;
+                object-fit: contain;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts">
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💝</div>
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💝</div>
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💝</div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>สำหรับคนพิเศษของเค้า</h1>
+            <p class="subtitle">เว็บไซต์ที่เค้าอยากทำให้เธอ 💕</p>
+        </header>
+
+        <section class="content-section">
+            <h2>💌 ข้อความบอกรัก</h2>
+            <div class="love-message">
+                <p>เธอจำวันที่เราเจอกันได้ไหมเค้าชอบเธอตั้งแต่วันแรกละ✨</p>
+                <p>ธอชอบบอกว่าเค้าไม่รู้สึกเลวาเราทะเลาะกันแต่จริงเค้านอนร้องไห้บ่อยจะตาย</p>
+                <p>🌟เค้าพูดไม่ค่อยเก่งเขียนเว็บให้เลยละกัน 🌟</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="interactive-button" onclick="showSurprise()">คลิกเพื่อดูข้อความพิเศษ! 💝</button>
+            </div>
+            
+            <div id="surpriseMessage" class="surprise-message">
+                <h3>🎉 ข้อความพิเศษ! 🎉</h3>
+                <p>เค้าอยากขอบคุณเธอนะที่เข้ามาในชีวิตเค้าขอบคุณที่ทำให้เค้าเป็นคนที่ดีขึ้น! 💫</p>
+                <p>เธอคือส่วนนึงที่ทำให้เค้าเป็นคนดีขึ้นนะ ❤️</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>📸 ความทรงจำของเรา</h2>
+            
+            <!-- Photo Slideshow -->
+            <div class="slideshow-container">
+                <div class="slide active">
+                    <img src="001.JPG" alt="รูปแรกที่เธอส่งให้" class="slide-photo">
+                    <div class="slide-caption">💕 รูปแรกที่เธอส่งให้</div>
+                </div>
+                <div class="slide">
+                    <img src="002.JPG" alt="คอนแรกของเรา" class="slide-photo">
+                    <div class="slide-caption"> คอนแรกของเรา</div>
+                </div>
+                <div class="slide">
+                    <img src="003.JPG" alt="ทริปแรกของเรา" class="slide-photo">
+                    <div class="slide-caption">ทริปแรกของเรา</div>
+                </div>
+                <div class="slide">
+                    <img src="004.JPG" alt="ดูพลุครั้งแรกของเรา" class="slide-photo">
+                    <div class="slide-caption">ดูพลุครั้งแรกของเรา</div>
+                </div>
+                
+                <!-- Navigation buttons -->
+                <button class="slide-btn prev" onclick="changeSlide(-1)">❮</button>
+                <button class="slide-btn next" onclick="changeSlide(1)">❯</button>
+                
+                <!-- Dots indicator -->
+                <div class="dots-container">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+            </div>
+            
+            <!-- Thumbnail gallery -->
+            <div class="thumbnail-gallery">
+                <div class="thumbnail" onclick="currentSlide(1)">
+                    <img src="001.JPG" alt="รูปแรกที่เธอส่งให้">
+                </div>
+                <div class="thumbnail" onclick="currentSlide(2)">
+                    <img src="002.JPG" alt="คอนแรกของเรา">
+                </div>
+                <div class="thumbnail" onclick="currentSlide(3)">
+                    <img src="003.JPG" alt="ทริปแรกของเรา">
+                </div>
+                <div class="thumbnail" onclick="currentSlide(4)">
+                    <img src="004.JPG" alt="ดูพลุครั้งแรกของเรา">
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>💭 ความทรงจำพิเศษ</h2>
+            
+            <div class="memory-card">
+                <h3>🌅 วันแรกที่เจอกัน</h3>
+                <p>คือเค้าชอบเธอมานานแล้วถ้ารู้ว่าไม่มีแฟนนะจีบไปนานแย้วว</p>
+            </div>
+            
+            <div class="memory-card">
+                <h3>🌙 คืนแรกที่อยู่กันจนเช้า</h3>
+                <p>มีความสุขมากกกกรู้เลยว่าการมีแฟนดียังไงแต่เธอคงนอนไม่หลับ</p>
+            </div>
+            
+            <div class="memory-card">
+                <h3>💕 วันที่บอกรักกัน</h3>
+                <p>ตื่นเต้นมากกลัวเธอไม่ยอมเป็นแฟนด้วย</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>⏰ เวลาที่เราอยู่ด้วยกัน</h2>
+            <div class="countdown" id="countdown">
+                <p>เราได้อยู่ด้วยกันมาแล้ว...</p>
+                <p id="timeCounter">กำลังนับเวลา... ⏳</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="interactive-button" onclick="playLoveSound()">🎵 เพลงที่เราชอบ</button>
+                <button class="interactive-button" onclick="embedYouTube()">📺 ฟังเพลงในหน้านี้</button>
+                <button class="interactive-button" onclick="showRandomLoveQuote()">💕 ข้อความที่เค้าอยากบอก</button>
+            </div>
+            
+            <!-- YouTube Embed Container -->
+            <div id="youtubeContainer" class="youtube-container">
+                <div class="youtube-embed">
+                    <iframe id="youtubeFrame" width="100%" height="315" 
+                            src="" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <button class="interactive-button" onclick="hideYouTube()" style="margin-top: 15px;">
+                    ✖️ ซ่อนเพลง
+                </button>
+            </div>
+            
+            <div id="randomQuote" class="surprise-message">
+                <p id="quoteText"></p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>สร้างด้วยความรัก 💕 สำหรับคนที่ฉันรักที่สุดในโลก</p>
+            <p>Forever & Always ∞</p>
+        </footer>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        
+        // Slideshow functions
+        function changeSlide(n) {
+            showSlide(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+        
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show current slide
+            if (slides[slideIndex - 1]) {
+                slides[slideIndex - 1].classList.add('active');
+            }
+            if (dots[slideIndex - 1]) {
+                dots[slideIndex - 1].classList.add('active');
+            }
+        }
+        
+        // Auto slideshow (เปลี่ยนรูปอัตโนมัติทุก 5 วินาที)
+        function autoSlide() {
+            slideIndex++;
+            if (slideIndex > document.querySelectorAll('.slide').length) {
+                slideIndex = 1;
+            }
+            showSlide(slideIndex);
+        }
+        
+        // Start auto slideshow
+        setInterval(autoSlide, 5000);
+        
+        // Initialize slideshow
+        showSlide(slideIndex);
+        
+        let startDate = new Date('2023-03-09'); // เปลี่ยนวันที่ตามที่ต้องการ
+        
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('timeCounter').innerHTML = 
+                `${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที 💕`;
+        }
+        
+        function showSurprise() {
+            const surpriseMsg = document.getElementById('surpriseMessage');
+            surpriseMsg.style.display = surpriseMsg.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // ฟังก์ชันเปิดเพลงใน YouTube ที่แท็บใหม่
+        function playLoveSound() {
+            window.open('https://www.youtube.com/watch?v=ks7p6DA0dKk', '_blank');
+            alert('🎵 เปิดเพลงที่เราชอบฟังด้วยกันแล้ว💕');
+        }
+        
+        // ฟังก์ชันฝัง YouTube ในหน้าเดียวกัน
+        function embedYouTube() {
+            const container = document.getElementById('youtubeContainer');
+            const iframe = document.getElementById('youtubeFrame');
+            
+            iframe.src = 'https://www.youtube.com/embed/ks7p6DA0dKk?autoplay=1&rel=0';
+            container.style.display = 'block';
+            
+            // เลื่อนลงไปดู embed
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // ฟังก์ชันซ่อน YouTube embed
+        function hideYouTube() {
+            const container = document.getElementById('youtubeContainer');
+            const iframe = document.getElementById('youtubeFrame');
+            
+            iframe.src = ''; // หยุดเล่น
+            container.style.display = 'none';
+        }
+        
+        function showRandomLoveQuote() {
+            const quotes = [
+                "เธอคือเหตุผลที่เค้าตื่นเช้าไปทำงาน",
+                "ในโลกที่มีคนเป็นพันล้าน เค้าเลือกเธอเพราะตัวเธอ",
+                "เธอทำให้เค้าเป็นคนที่ดีขึ้นทุกวัน ",
+                "ความรักของเราทะเลาะกันบ่อยแต่เค้าไม่เคยอยากเลิกกับเธอที่ผ่านมาเค้าโกหก ",
+                "เธอคือบ้านของเค้า",
+                "เธอคือสิ่งที่ดีที่สุดที่เกิดขึ้นในชีวิตเค้า"
+            ];
+            
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            const quoteElement = document.getElementById('randomQuote');
+            const quoteText = document.getElementById('quoteText');
+            
+            quoteText.textContent = randomQuote;
+            quoteElement.style.display = 'block';
+            
+            // ซ่อนข้อความหลังจาก 5 วินาที
+            setTimeout(() => {
+                quoteElement.style.display = 'none';
+            }, 5000);
+        }
+        
+        // เริ่มต้นตัวนับเวลา
+        setInterval(updateTimer, 1000);
+        updateTimer();
+        
+        // เพิ่มเอฟเฟกต์หัวใจลอย
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💕';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '100%';
+            heart.style.fontSize = '20px';
+            heart.style.opacity = '0.7';
+            heart.style.pointerEvents = 'none';
+            heart.style.transition = 'all 3s ease-out';
+            heart.style.zIndex = '1000';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.style.top = '-50px';
+                heart.style.opacity = '0';
+            }, 100);
+            
+            setTimeout(() => {
+                document.body.removeChild(heart);
+            }, 3000);
+        }, 2000);
+    </script>
+Next steps
+To keep your database instance active after the initial 7-day period, connect to Neon and claim your database.
+
+Visit our documentation for more details:
+Learn more about Netlify DB
+
+To get data from your Neon database directly using the `@netlify/neon` package, you can use this query:
+
+import { neon } from '@netlify/neon';
+const sql = neon(); // automatically uses env NETLIFY_DATABASE_URL
+const [post] = await sql`SELECT * FROM posts WHERE id = ${postId}`;
+
+Visit our documentation for more details:
+Learn more about Netlify DB
+</body>
+</html>
